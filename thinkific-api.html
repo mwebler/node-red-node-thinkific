@@ -1,0 +1,82 @@
+<script type="text/x-red" data-template-name="thinkific">
+  <div class="form-row">
+    <label for="node-config-input-apikey"><i class="icon-globe"></i> apikey</label>
+    <input type="text" id="node-config-input-apikey" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-subdomain"><i class="icon-tag"></i> subdomain</label>
+    <input type="text" id="node-config-input-subdomain" placeholder="subdomain" />
+  </div>
+</script>
+
+<script type="text/javascript">
+RED.nodes.registerType("thinkific", {
+  "category": "config",
+  "color": "#5685C4",
+  "defaults": {
+    "apikey": {
+      "value": ""
+    },
+    "subdomain": {
+      "value": ""
+    },
+  },
+  "label": function() {
+    return this.subdomain;
+  }
+});
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('thinkific-api',{
+        category: 'thinkificapi',
+        color: '#5685C4',
+        defaults: {
+            configNode: {type: "thinkific", required: true},
+            name: {value:""},
+            resource: {value: ""},
+            operation: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        label: function() {
+            return this.name||"thinkific-api";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="thinkific-api">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row hide" id="node-input-configNode">
+        <label for="node-input-configNode"><i class="icon-bookmark"></i> thinkific</label>
+        <input type="text" id="node-input-configNode" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-resource"><i class="fa fa-wrench"></i> <span>Resource</span></label>
+        <select type="text" id="node-input-resource" style="display: inline-block; vertical-align: top;">
+            <option value="courses">courses</option>
+            <option value="products">products</option>
+            <option value="promotions">promotions</option>
+            <option value="coupons">coupons</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-operation"><i class="fa fa-wrench"></i> <span>operation</span></label>
+        <select type="text" id="node-input-operation" style="display: inline-block; vertical-align: top;">
+            <option value="getList">getList</option>
+            <option value="getById">getById</option>
+            <option value="create">create</option>
+            <option value="put">put</option>
+            <option value="delete">delete</option>
+            <option value="find">find</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="thinkific-api">
+    <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>

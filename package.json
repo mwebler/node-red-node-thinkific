@@ -1,0 +1,23 @@
+{
+  "name": "red-node-thinkific",
+  "version": "1.0.0",
+  "description": "Node for thinkific API",
+  "node-red": {
+    "nodes": {
+      "thinkific-api": "thinkific-api.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwebler/node-red-node-thinkific.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mwebler/node-red-node-thinkific/issues"
+  },
+  "homepage": "https://github.com/mwebler/node-red-node-thinkific#readme",
+  "dependencies": {
+    "thinkific-api": "github:mwebler/thinkific-api"
+  }
+}
