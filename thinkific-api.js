@@ -1,23 +1,35 @@
-//const ThinkificApi = require('thinkific-api');
+const Thinkific = require('thinkific-api').default;
 
 module.exports = function(RED) {
     function ThinkificApi(config) {
         RED.nodes.createNode(this,config);
         // Retrieve the config node
-        this.thinkific = RED.nodes.getNode(config.thinkific);
+        this.configNode = RED.nodes.getNode(config.thinkific);
         
         this.resource = config.resource;
         this.operation = config.operation;
         var node = this;
-        //var thinkific = new ThinkificApi(config.configNode.apikey, config.configNode.subdomain);
+
+        var opts = {
+            apiKey: this.configNode.apikey,
+            subdomain: this.configNode.subdomain
+        }
+        var ThinkificClient = new Thinkific(opts);
+
         node.on('input', function(msg) {
-            var r = thinkific[node.resource];
-            node.send({payload: {
-                resource: node.resource,
-                operation: node.operation,
-                thinkific: node.thinkific || 'naotem'
-            }});
-        });
+            var r = ThinkificClient[node.resource];
+            console.log(r);
+            var args = msg.payload.parameters;
+            console.log(r[node.operation]);
+            r[node.operation](...args).then(res => {
+                console.log(res);
+                node.send({payload: res});
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+       });
     }
 
     RED.nodes.registerType("thinkific", function (config){
