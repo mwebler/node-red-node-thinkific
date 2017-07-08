@@ -11,18 +11,14 @@
 
 <script type="text/javascript">
 RED.nodes.registerType("thinkific", {
-  "category": "config",
-  "color": "#5685C4",
-  "defaults": {
-    "apikey": {
-      "value": ""
-    },
-    "subdomain": {
-      "value": ""
-    },
+  category: "config",
+  color: "#5685C4",
+  defaults: {
+    apikey: {value: "", required: true},
+    subdomain: {value: "", required:true},
   },
-  "label": function() {
-    return this.subdomain;
+  label: function() {
+    return this.subdomain || "none";
   }
 });
 </script>
@@ -30,10 +26,10 @@ RED.nodes.registerType("thinkific", {
 
 <script type="text/javascript">
     RED.nodes.registerType('thinkific-api',{
-        category: 'thinkificapi',
+        category: 'thinkific',
         color: '#5685C4',
-        defaults: {
-            configNode: {type: "thinkific", required: true},
+        defaults: { 
+            thinkific: {type: "thinkific", required: true},
             name: {value:""},
             resource: {value: ""},
             operation: {value:""}
@@ -47,13 +43,13 @@ RED.nodes.registerType("thinkific", {
 </script>
 
 <script type="text/x-red" data-template-name="thinkific-api">
+    <div class="form-row hide" id="node-input-thinkific">
+        <label for="node-input-thinkific"><i class="fa fa-database"></i> thinkific</label>
+        <input type="text" id="node-input-thinkific" />
+    </div>
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-    <div class="form-row hide" id="node-input-configNode">
-        <label for="node-input-configNode"><i class="icon-bookmark"></i> thinkific</label>
-        <input type="text" id="node-input-configNode" />
     </div>
     <div class="form-row">
         <label for="node-input-resource"><i class="fa fa-wrench"></i> <span>Resource</span></label>
